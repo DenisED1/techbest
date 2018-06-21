@@ -1,12 +1,78 @@
 <!DOCTYPE html>
 <html>
-	<title>Dynamic Example</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<title>TechBest</title>
 	<body>
-		<form action="DynamicServlet.do" method="get">
+		<div id="zoekbar">
+			<input type="text" id="txtPn" value="Naam product">
+			<input type="text" id="txtLc" value="Leverancier">
+			<input type="text" id="txtKl" value="Kleur">
+			<button id="zoek">Zoeken</button>
+			<button id="winkelwagen">Winkelwagen</button>
+		</div>
+		<div id="productenlijst">
+			<h1>Beschikbare producten</h1>
+			<table id="table1"></table>
+		</div>
+		<div id="productinformatie">
+			<h1 id="naamProduct">Productspecificatie</h1>
+				<div>
+					<b><label id="lbl">Product:</label></b>
+					<b><label id="naam"></label></b>
+				</div>
+        		<div>
+          			<label id="lbl">Prijs:</label>
+				  	<label id="prijs"></label>
+        		</div>
+        		<div>
+        			<label id="lbl">Kleur:</label>
+					<label id="kleur"></label>
+        		</div>
+        		<div>
+        			<label id="lbl">Leverancier:</label>
+					<label id="leverancier"></label>
+        		</div>
+        		<div>
+        			<label id="lbl">Processor:</label>
+					<label id="processor"></label>
+        		</div>
+        		<div>
+        			<label id="lbl">Geheugen:</label>
+					<label id="geheugen"></label>
+        		</div>
+        		<div>
+        			<label id="lbl">Opslag:</label>
+					<label id="opslag"></label>
+        		</div>
+        		<div>
+        			<label id="lbl">Videokaart:</label>
+					<label id="videokaart"></label>
+        		</div>
+        		<div>
+        			<button id="winkelwagen">Voeg toe aan winkelwagen</button>
+        		</div>
+        		<div>
+        			<button id="back1">Back</button>
+        		</div>
+		</div>
+		<div id="zoekresultatenlijst">
+			<h1>Zoekresultaat</h1>
+			<table id="table2"></table>
 			<div>
-				<input type="text" name="username" />
-				<input type="submit" value="Go!" />
+        		<button id="back2">Back</button>
+        	</div>
+		</div>
+		<div id=winkelmandje>
+			<h1>Winkelwagen</h1>
+			<div>
+				<label id="lbl">Uw order nummer:</label>
+				<label id="orderNummer">0</label>
 			</div>
-		</form>
+			<table id="table3"></table>
+			<div>
+				<button id="back3">Back</button>
+			</div>
+		</div>
 	</body>
+	<script src="index.js"></script>
 </html>
