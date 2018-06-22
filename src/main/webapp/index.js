@@ -160,16 +160,11 @@ function toonProducten(myJson){
 
 //TOEVOEGEN AAN WINKELMANDJE
 function addWinkelmand(productID){
-	//if(nummer = 0){
-		fetch('/techbest/restservices/producten/createOrder', {method: 'POST'})
-		.then(response => response.json())
-		.then(function(myJson){
-			nummer = myJson.order_id;
-			console.log(myJson);
-		})
-	//}
-	
-	console.log(nummer);
+	fetch('/techbest/restservices/producten/createOrder', {method: 'POST'})
+	.then(response => response.json())
+	.then(function(myJson){
+		console.log(myJson);
+	})
 }
 
 //WINKELMANDJE

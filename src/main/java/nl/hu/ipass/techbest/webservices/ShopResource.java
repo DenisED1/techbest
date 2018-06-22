@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import nl.hu.ipass.techbest.model.Order;
 import nl.hu.ipass.techbest.model.Product;
@@ -159,12 +160,15 @@ public class ShopResource {
 	}
 	
 	@POST
-    @Path("/createOrder")
-    @Consumes("application/json")
+	@Path("/createOrder")
+	@Consumes("application/json")
 	@Produces("application/json")
-    public boolean createOrder(Order order) {
-		ShopService service = ServiceProvider.getShopService();
-		
-        return service.createOrder(order); 
-    }
+	public Response createOrder(Order order) {
+	    ShopService service = ServiceProvider.getShopService();
+	    boolean bool = service.createOrder(order);
+	    if (bool == true) {
+	    return Response.ok(order).build();
+	} else {
+	    return Response.status(404).build();}
+	}
 }
