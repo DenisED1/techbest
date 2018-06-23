@@ -1,17 +1,25 @@
 package nl.hu.ipass.techbest.model;
 
 public class OrderItem {
-	private int item_id;
+	private Long item_id;
 	private int product_id;
 	private int order_id;
 	private int aantal;
 	private double totaal;
 	
-	public int getItem_id() {
+	public OrderItem(Long iid, int pid, int oid, int an, double tt) {
+		item_id = iid;
+		product_id = pid;
+		order_id = oid;
+		aantal = an;
+		totaal = tt;
+	}
+
+	public Long getItem_id() {
 		return item_id;
 	}
 	
-	public void setItem_id(int item_id) {
+	public void setItem_id(Long item_id) {
 		this.item_id = item_id;
 	}
 	

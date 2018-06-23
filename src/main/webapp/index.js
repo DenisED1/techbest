@@ -2,7 +2,7 @@ var info = document.getElementById('productinformatie');
 var home = document.getElementById('productenlijst');
 var zoek = document.getElementById('zoekresultatenlijst');
 var winkel = document.getElementById('winkelmandje');
-var nummer = 0;
+var order_ID = null;
 
 //STARTSCHERM
 function initPage(){
@@ -39,7 +39,7 @@ function initPage(){
 			td4.appendChild(btn2);
 			rij.appendChild(td4);
 			
-			btn2.addEventListener("click", function (){addWinkelmand(product.productID);});
+			btn2.addEventListener("click", function (){createOrder(product.productID, product.prijs);});
 			
 			document.getElementById('table1').appendChild(rij);
 		}
@@ -158,12 +158,39 @@ function toonProducten(myJson){
 	}
 }
 
-//TOEVOEGEN AAN WINKELMANDJE
-function addWinkelmand(productID){
-	fetch('/techbest/restservices/producten/createOrder', {method: 'POST'})
+//ORDER MAKEN ALS ER NOG GEEN IS
+function createOrder(productID, prijs){
+	if (order_ID == null){
+		fetch('/techbest/restservices/producten/createOrder', {method: 'POST'})
+		.then(response => response.json())
+		.then(function(myJson){
+			for(const order of myJson){
+				order_ID = order.orderID;
+				addWinkelwagen(order_ID, productID, prijs);
+				console.log("For: "+order_ID);
+			}
+			console.log("then: "+order_ID);
+		})
+		console.log("if: "+order_ID);
+	}
+}
+
+//TOEVOEGEN AAN WINKELWAGEN
+function addWinkelwagen(order_ID, product_ID, pr){
+	fetch('/techbest/restservices/producten/createOrderItem', {
+		method: 'POST',
+		body: JSON.stringify({
+			orderID: order_ID,
+			productID: product_ID,
+			prijs: pr
+		}),
+		headers:{
+		    'Content-Type': 'application/json'
+		  }
+		})
 	.then(response => response.json())
 	.then(function(myJson){
-		console.log(myJson);
+		
 	})
 }
 

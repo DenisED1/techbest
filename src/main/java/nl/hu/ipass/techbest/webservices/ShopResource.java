@@ -13,9 +13,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
+
+import org.json.JSONObject;
 
 import nl.hu.ipass.techbest.model.Order;
+import nl.hu.ipass.techbest.model.OrderItem;
 import nl.hu.ipass.techbest.model.Product;
 import nl.hu.ipass.techbest.model.ServiceProvider;
 import nl.hu.ipass.techbest.model.ShopService;
@@ -160,15 +162,76 @@ public class ShopResource {
 	}
 	
 	@POST
-	@Path("/createOrder")
+    @Path("/createOrder")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public String createOrder() {
+        ShopService service = ServiceProvider.getShopService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		Order order = new Order(null, 1, null, null);
+		Order o = service.createOrder(order);
+		
+		JsonObjectBuilder job = Json.createObjectBuilder();
+		job.add("orderID", o.getOrder_id());
+		
+		jab.add(job);
+		
+		JsonArray array = jab.build();
+		return array.toString();
+    }
+	
+	@POST
+	@Path("/createOrderItem")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response createOrder(Order order) {
-	    ShopService service = ServiceProvider.getShopService();
-	    boolean bool = service.createOrder(order);
-	    if (bool == true) {
-	    return Response.ok(order).build();
-	} else {
-	    return Response.status(404).build();}
+	public String createOrderItem(String stringJson) {
+		ShopService service = ServiceProvider.getShopService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		JSONObject myJson = new JSONObject(stringJson);
+		int orderID = myJson.getInt("orderID");
+		int productID = myJson.getInt("productID");
+		double prijs = myJson.getDouble("prijs");
+		
+		OrderItem item = new OrderItem(null, 0, 0, 1, 0.0);
+		OrderItem i = service.createOrderItem(item, orderID, productID, prijs);
+		
+		JsonObjectBuilder job = Json.createObjectBuilder();
+		job.add("itemID", i.getItem_id());
+		job.add("orderID", i.getOrder_id());
+		job.add("productID", i.getProduct_id());
+		
+		jab.add(job);
+		
+		JsonArray array = jab.build();
+		return array.toString();
 	}
+	
+	/*@GET
+	@Path("naam/{nm}")
+	@Produces("application/json")
+	public String getProductByNaam(@PathParam("nm") String nm) {
+		ShopService service = ServiceProvider.getShopService();
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		List<Product> producten = service.getProductByNaam(nm);
+		
+		for (Product p : producten) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("productID", p.getProductID());
+			job.add("naam", p.getNaam());
+			job.add("kleur", p.getKleur());
+			job.add("leverancier", p.getLeverancier());
+			job.add("prijs", p.getPrijs());
+			job.add("processor", p.getProcessor());
+			job.add("geheugen", p.getGeheugen());
+			job.add("opslag", p.getOpslag());
+			job.add("videokaart", p.getVideokaart());
+			
+			jab.add(job);
+		}
+		
+		JsonArray array = jab.build();
+		return array.toString();
+	}*/
 }

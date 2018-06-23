@@ -4,24 +4,24 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class Order {
-	private int order_id;
+	private Long order_id;
 	private int klant_id;
 	private Date bestelDatum;
 	private Date leverDatum;
 	private ArrayList<OrderItem> orderItems;
 	
-	public Order(int oid, int kid, Date bd, Date ld) {
+	public Order(Long oid, int kid, Date bd, Date ld) {
 		order_id = oid;
-		setKlant_id(kid);
+		klant_id = kid;
 		bestelDatum = bd;
 		leverDatum = ld;
 	}
 	
-	public int getOrder_id() {
+	public Long getOrder_id() {
 		return order_id;
 	}
 	
-	public void setOrder_id(int order_id) {
+	public void setOrder_id(Long order_id) {
 		this.order_id = order_id;
 	}
 

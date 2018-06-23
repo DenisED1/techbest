@@ -3,6 +3,8 @@ package nl.hu.ipass.techbest.model;
 import java.util.List;
 
 import nl.hu.ipass.techbest.persistence.OrderDao;
+import nl.hu.ipass.techbest.persistence.OrderItemDao;
+import nl.hu.ipass.techbest.persistence.OrderItemPostgresDaoImpl;
 import nl.hu.ipass.techbest.persistence.OrderPostgresDaoImpl;
 import nl.hu.ipass.techbest.persistence.ProductDao;
 import nl.hu.ipass.techbest.persistence.ProductPostgresDaoImpl;
@@ -37,10 +39,16 @@ public class ShopService {
 		return productDao.findByNaam(nm);
 	}
 
-	public boolean createOrder(Order order) {
+	public Order createOrder(Order order) {
 		OrderDao orderDao = new OrderPostgresDaoImpl();
 		
 		return orderDao.createOrder(order);
+	}
+	
+	public OrderItem createOrderItem(OrderItem item, int order_id, int product_id, double totaal) {
+		OrderItemDao itemDao = new OrderItemPostgresDaoImpl();
+		
+		return itemDao.createOrderItem(item, order_id, product_id, totaal);
 	}
 	
 }
