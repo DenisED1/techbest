@@ -6,6 +6,7 @@ public class OrderItem {
 	private int order_id;
 	private int aantal;
 	private double totaal;
+	private Product product;
 	
 	public OrderItem(Long iid, int pid, int oid, int an, double tt) {
 		item_id = iid;
@@ -13,6 +14,15 @@ public class OrderItem {
 		order_id = oid;
 		aantal = an;
 		totaal = tt;
+	}
+	
+	public OrderItem(Long iid, int pid, int oid, int an, double tt, Product pd) {
+		item_id = iid;
+		product_id = pid;
+		order_id = oid;
+		aantal = an;
+		totaal = tt;
+		product = pd;
 	}
 
 	public Long getItem_id() {
@@ -53,5 +63,13 @@ public class OrderItem {
 	
 	public void setTotaal(double totaal) {
 		this.totaal = totaal;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }

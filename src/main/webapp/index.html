@@ -48,11 +48,10 @@
         			<label id="lbl">Videokaart:</label>
 					<label id="videokaart"></label>
         		</div>
-        		<div>
-        			<button id="winkelwagen">Voeg toe aan winkelwagen</button>
-        		</div>
+        		<p></p>
         		<div>
         			<button id="back1">Back</button>
+        			<button id="addWinkelwagen3">Voeg toe aan winkelwagen</button>
         		</div>
 		</div>
 		<div id="zoekresultatenlijst">
@@ -66,11 +65,55 @@
 			<h1>Winkelwagen</h1>
 			<div>
 				<label id="lbl">Uw order nummer:</label>
-				<label id="orderNummer">0</label>
+				<label id="orderNummer">-</label>
 			</div>
-			<table id="table3"></table>
+			<p></p>
+			<table id="table3">
+				<tr>
+					<th>Product</th>
+					<th>Aantal</th>
+					<th>Prijs</th>
+				</tr>
+			</table>
+			<div>
+				<label id="lbl">Totaalprijs:</label>
+				<label id="totaalPrijs">-</label>
+			</div>
+			<p></p>
 			<div>
 				<button id="back3">Back</button>
+				<div id="hideButton">
+					<button id="annuleren">Annuleren</button>
+					<button id="afronden">Afronden</button>
+				</div>
+			</div>
+		</div>
+		<div id="orderbevestigen">
+			<h1>Bevestig uw order</h1>
+			<table id="table4">
+				<tr>
+					<th>Product</th>
+					<th>Aantal</th>
+					<th>Prijs</th>
+				</tr>
+			</table>
+			<div>
+				<label id="lbl">Totaalprijs:</label>
+				<label id="totaalPrijs2">-</label>
+			</div>
+			<p></p>
+			<div>
+				<button id="back4">Back</button>
+				<button id="bevestigen">Bevestigen</button>
+			</div>
+		</div>
+		<div id="afgerond">
+			<h1>Bedankt voor uw aankoop!</h1>
+			<p>Uw betaling is succesvol afgerond.</p>
+			<p>Bedankt voor uw aankoop en hopelijk tot de volgende keer!</p>
+			<p>Druk op 'Back to home' om weer terug naar de startpagina te gaan</p>
+			<div>
+				<button id="back5">Back to home</button>
 			</div>
 		</div>
 	</body>

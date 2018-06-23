@@ -50,5 +50,11 @@ public class ShopService {
 		
 		return itemDao.createOrderItem(item, order_id, product_id, totaal);
 	}
+
+	public List<OrderItem> getProductByOrder(int oid) {
+		OrderItemDao itemDao = new OrderItemPostgresDaoImpl();
+
+		return itemDao.findByOrder(oid);
+	}
 	
 }

@@ -1,7 +1,6 @@
 package nl.hu.ipass.techbest.persistence;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,28 +25,6 @@ public class OrderPostgresDaoImpl extends PostgresBaseDao implements OrderDao {
 			sqle.printStackTrace();
 		}
 		
-		return order;
-	}
-
-	public Order findById(Long order_id) {
-		Order order = null;
-		
-		try (Connection con = super.getConnection()) {
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM orders WHERE orders_id = ?");
-			pstmt.setLong(1, order_id);
-			ResultSet dbResultSet = pstmt.executeQuery();
-			
-			dbResultSet.next();
-			Long orderID = dbResultSet.getLong("orders_id");
-			int klantID = dbResultSet.getInt("klant_id");
-			Date bestelDatum = dbResultSet.getDate("besteldatum");
-			Date leverDatum = dbResultSet.getDate("leverdatum");
-			
-			order = new Order(orderID, klantID, bestelDatum, leverDatum);
-			
-		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-		}
 		return order;
 	}
 }

@@ -7,3 +7,20 @@
 #winkelmandje{
 	display: none;
 }
+#orderbevestigen{
+	display: none;
+}
+#hideButton{
+	display: none;
+}
+#afgerond{
+	display: none;
+}
+#table3 {
+	text-align: left;
+	padding: 8px;
+}
+#table4 {
+	text-align: left;
+	padding: 8px;
+}
