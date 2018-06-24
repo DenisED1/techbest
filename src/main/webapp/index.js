@@ -10,7 +10,6 @@ var zoekbar = document.getElementById('zoekbar');
 var order_ID = null;
 var pID = null;
 var pPrijs = null;
-var tt = null;
 
 //STARTSCHERM
 function initPage(){
@@ -216,9 +215,6 @@ function addWinkelwagen(order_ID, product_ID, pr){
 	.then(response => response.json())
 	.then(function(myJson){
 		for (const item of myJson){
-			tt = (tt + item.totaal);
-			var ttPrijs = document.getElementById("totaalPrijs");
-			ttPrijs.innerHTML = '\u20AC'+tt+",-";
 		}
 	})
 }
@@ -234,6 +230,12 @@ function bekijkWinkelmand(){
 	bevestigingscherm.style.display = "none";
 	afgerond.style.display = "none";
 	zoekbar.style.display = "block";
+	
+	var tt = null;
+	var ttPrijs = document.getElementById("totaalPrijs");
+	ttPrijs.innerHTML = "-";
+	var ttPrijs2 = document.getElementById("totaalPrijs2");
+	ttPrijs.innerHTML = "-";
 	
 	var elmtTable = document.getElementById('table3');
 	var tableRows = elmtTable.getElementsByTagName('tr');
@@ -274,7 +276,7 @@ function bekijkWinkelmand(){
 				td4.appendChild(btn1);
 				rij.appendChild(td4);
 			
-				btn1.addEventListener("click", function (){});
+				btn1.addEventListener("click", function (){wijzigItem(item.itemID);});
 			
 				var td5 = document.createElement('td');
 				var btn2 = document.createElement('button');
@@ -284,9 +286,13 @@ function bekijkWinkelmand(){
 				td5.appendChild(btn2);
 				rij.appendChild(td5);
 				
-				btn2.addEventListener("click", function (){});
+				btn2.addEventListener("click", function (){verwijderItem(item.itemID);});
 			
 				document.getElementById('table3').appendChild(rij);
+				
+				tt = (tt + item.totaal);
+				ttPrijs.innerHTML = '\u20AC'+tt+",-";
+				ttPrijs2.innerHTML = '\u20AC'+tt+",-";
 			}
 		})
 	}
@@ -311,6 +317,46 @@ function bekijkWinkelmand(){
 	}
 }
 
+//ITEM VERWIJDEREN
+function verwijderItem(item_ID){
+	fetch('/techbest/restservices/producten/verwijderItem/'+item_ID, {method: 'DELETE'})
+	.then(function(response) {
+      if (response.ok) // response-status = 200 OK
+        console.log("Item "+item_ID+" deleted!");
+      else if (response.status == 404)
+        console.log("Item not found!");
+      else console.log("Cannot delete item!");
+    })
+	.then(function(){})
+}
+
+//ITEM WIJZIGEN
+function wijzigItem(item_ID){
+	
+}
+
+//ORDER VERWIJDEREN
+document.getElementById('annuleren').addEventListener("click", function(){verwijderOrder(order_ID);});
+
+function verwijderOrder(order_ID){
+	fetch('/techbest/restservices/producten/verwijderOrder/'+order_ID, {method: 'DELETE'})
+	.then(function(response) {
+      if (response.ok) // response-status = 200 OK
+        console.log("Order "+order_ID+" deleted!");
+      else if (response.status == 404)
+        console.log("Order not found!");
+      else console.log("Cannot delete order!");
+    })
+	.then(function(){
+		order_ID = null;
+		
+		var orderNummer = document.getElementById("orderNummer");
+		orderNummer.innerHTML = "-";
+		
+		backToHome();
+		})
+}
+
 //BEVESTIGING SCHERM
 document.getElementById('afronden').addEventListener("click", function(){bekijkBevestiging(order_ID)});
 
@@ -322,9 +368,6 @@ function bekijkBevestiging(order_ID){
 	bevestigingscherm.style.display = "block";
 	afgerond.style.display = "none";
 	zoekbar.style.display = "none";
-	
-	var ttPrijs2 = document.getElementById("totaalPrijs2");
-	ttPrijs2.innerHTML = '\u20AC'+tt+",-";
 	
 	var elmtTable = document.getElementById('table4');
 	var tableRows = elmtTable.getElementsByTagName('tr');
@@ -375,7 +418,6 @@ function afronden(){
 	order_ID = null;
 	pID = null;
 	pPrijs = null;
-	tt = null;
 	
 	var orderNummer = document.getElementById("orderNummer");
 	orderNummer.innerHTML = "-";

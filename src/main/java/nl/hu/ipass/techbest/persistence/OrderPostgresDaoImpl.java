@@ -27,4 +27,21 @@ public class OrderPostgresDaoImpl extends PostgresBaseDao implements OrderDao {
 		
 		return order;
 	}
+
+	public boolean deleteOrder(int oid) {
+		boolean result = false;
+		try (Connection con = super.getConnection()) {
+			String query = "delete from orders where orders_id = ?";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, oid);
+			pstmt.execute();
+			
+			result = true;
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		
+		return result;
+	}
 }

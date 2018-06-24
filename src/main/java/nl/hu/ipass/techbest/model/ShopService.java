@@ -56,5 +56,17 @@ public class ShopService {
 
 		return itemDao.findByOrder(oid);
 	}
+
+	public boolean verwijderItem(int iid) {
+		OrderItemDao itemDao = new OrderItemPostgresDaoImpl();
+		
+		return itemDao.verwijderItem(iid);
+	}
+
+	public boolean verwijderOrder(int oid) {
+		OrderItemDao itemDao = new OrderItemPostgresDaoImpl();
+		
+		return itemDao.verwijderOrder(oid);
+	}
 	
 }

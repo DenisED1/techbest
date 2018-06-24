@@ -7,12 +7,14 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import org.json.JSONObject;
 
@@ -231,5 +233,31 @@ public class ShopResource {
 		
 		JsonArray array = jab.build();
 		return array.toString();
+	}
+	
+	@DELETE
+	@Path("verwijderItem/{iid}")
+	@Produces("application/json")
+	public Response verwijderItem(@PathParam("iid") int iid) {
+		ShopService service = ServiceProvider.getShopService();
+		
+		if (!service.verwijderItem(iid)) {
+		      return Response.status(404).build();
+		    }
+
+		    return Response.ok().build();
+	}
+	
+	@DELETE
+	@Path("verwijderOrder/{oid}")
+	@Produces("application/json")
+	public Response verwijderOrder(@PathParam("oid") int oid) {
+		ShopService service = ServiceProvider.getShopService();
+		
+		if (!service.verwijderOrder(oid)) {
+		      return Response.status(404).build();
+		    }
+
+		    return Response.ok().build();
 	}
 }

@@ -7,4 +7,6 @@ import nl.hu.ipass.techbest.model.OrderItem;
 public interface OrderItemDao {
 	public OrderItem createOrderItem(OrderItem item, int order_id, int product_id, double tt);
 	public List<OrderItem> findByOrder(int oid);
+	public boolean verwijderItem(int iid);
+	public boolean verwijderOrder(int oid);
 }

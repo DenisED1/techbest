@@ -68,4 +68,41 @@ public class OrderItemPostgresDaoImpl extends PostgresBaseDao implements OrderIt
 		
 		return results;
 	}
+
+	public boolean verwijderItem(int iid) {
+		boolean result = false;
+		try (Connection con = super.getConnection()) {
+			String query = "delete from orderItem where item_id = ?";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, iid);
+			pstmt.execute();
+			
+			result = true;
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public boolean verwijderOrder(int oid) {
+		boolean result = false;
+		try (Connection con = super.getConnection()) {
+			String query = "delete from orderItem where orders_id = ?";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, oid);
+			pstmt.execute();
+			
+			OrderDao oDao = new OrderPostgresDaoImpl();
+			oDao.deleteOrder(oid);
+			
+			result = true;
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		
+		return result;
+	}
 }
