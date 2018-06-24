@@ -6,6 +6,7 @@ var bevestigingscherm = document.getElementById('orderbevestigen');
 var buttons = document.getElementById('hideButton');
 var afgerond = document.getElementById('afgerond');
 var zoekbar = document.getElementById('zoekbar');
+var bevestigannuleren = document.getElementById('bevestigannuleren');
 
 var order_ID = null;
 var pID = null;
@@ -62,6 +63,7 @@ function bekijkProduct(productID){
 	bevestigingscherm.style.display = "none";
 	afgerond.style.display = "none";
 	zoekbar.style.display = "block";
+	bevestigannuleren.style.display = "none";
 	
 	pID = null;
 	pPrijs = null;
@@ -140,6 +142,7 @@ function toonProducten(myJson){
 	bevestigingscherm.style.display = "none";
 	afgerond.style.display = "none";
 	zoekbar.style.display = "block";
+	bevestigannuleren.style.display = "none";
 	
 	for (const product of myJson){
 		var rij = document.createElement('tr');
@@ -221,6 +224,7 @@ function addWinkelwagen(order_ID, product_ID, pr){
 
 //WINKELMAND BEKIJKEN
 document.getElementById('back4').addEventListener("click", function(){bekijkWinkelmand()});
+document.getElementById('back6').addEventListener("click", function(){bekijkWinkelmand()});
 
 function bekijkWinkelmand(){	
 	info.style.display = "none";
@@ -230,6 +234,7 @@ function bekijkWinkelmand(){
 	bevestigingscherm.style.display = "none";
 	afgerond.style.display = "none";
 	zoekbar.style.display = "block";
+	bevestigannuleren.style.display = "none";
 	
 	var tt = null;
 	var ttPrijs = document.getElementById("totaalPrijs");
@@ -268,15 +273,15 @@ function bekijkWinkelmand(){
 				td3.appendChild(totaal);
 				rij.appendChild(td3);
 			
-				var td4 = document.createElement('td');
-				var btn1 = document.createElement('button');
-				var wijzig = document.createTextNode('wijzig');
-				btn1.setAttribute('id', 'wijzig')
-				btn1.appendChild(wijzig);
-				td4.appendChild(btn1);
-				rij.appendChild(td4);
+				//var td4 = document.createElement('td');
+				//var btn1 = document.createElement('button');
+				//var wijzig = document.createTextNode('wijzig');
+				//btn1.setAttribute('id', 'wijzig')
+				//btn1.appendChild(wijzig);
+				//td4.appendChild(btn1);
+				//rij.appendChild(td4);
 			
-				btn1.addEventListener("click", function (){wijzigItem(item.itemID);});
+				//btn1.addEventListener("click", function (){wijzigItem(item.itemID);});
 			
 				var td5 = document.createElement('td');
 				var btn2 = document.createElement('button');
@@ -327,7 +332,7 @@ function verwijderItem(item_ID){
         console.log("Item not found!");
       else console.log("Cannot delete item!");
     })
-	.then(function(){})
+	.then(function(){bekijkWinkelmand();})
 }
 
 //ITEM WIJZIGEN
@@ -335,8 +340,23 @@ function wijzigItem(item_ID){
 	
 }
 
+//BEVESTIG ORDER VERWIJDEREN
+document.getElementById('annuleren').addEventListener("click", function(){toonBevestigOrderVerwijderen();});
+
+function toonBevestigOrderVerwijderen(){
+	info.style.display = "none";
+	zoek.style.display = "none";
+	home.style.display = "none";
+	winkel.style.display = "none";
+	bevestigingscherm.style.display = "none";
+	buttons.style.display = "none";
+	afgerond.style.display = "none";
+	zoekbar.style.display = "none";
+	bevestigannuleren.style.display = "block";
+}
+
 //ORDER VERWIJDEREN
-document.getElementById('annuleren').addEventListener("click", function(){verwijderOrder(order_ID);});
+document.getElementById('akkoord').addEventListener("click", function(){verwijderOrder(order_ID);});
 
 function verwijderOrder(order_ID){
 	fetch('/techbest/restservices/producten/verwijderOrder/'+order_ID, {method: 'DELETE'})
@@ -348,13 +368,19 @@ function verwijderOrder(order_ID){
       else console.log("Cannot delete order!");
     })
 	.then(function(){
-		order_ID = null;
+		setOrderIDNull();
 		
 		var orderNummer = document.getElementById("orderNummer");
 		orderNummer.innerHTML = "-";
 		
 		backToHome();
 		})
+}
+
+
+//Order_ID null maken
+function setOrderIDNull(){
+	order_ID = null;
 }
 
 //BEVESTIGING SCHERM
@@ -368,6 +394,7 @@ function bekijkBevestiging(order_ID){
 	bevestigingscherm.style.display = "block";
 	afgerond.style.display = "none";
 	zoekbar.style.display = "none";
+	bevestigannuleren.style.display = "none";
 	
 	var elmtTable = document.getElementById('table4');
 	var tableRows = elmtTable.getElementsByTagName('tr');
@@ -414,8 +441,9 @@ function afronden(){
 	buttons.style.display = "none";
 	afgerond.style.display = "block";
 	zoekbar.style.display = "none";
+	bevestigannuleren.style.display = "none";
 	
-	order_ID = null;
+	setOrderIDNull();
 	pID = null;
 	pPrijs = null;
 	
@@ -442,6 +470,7 @@ function backToHome(){
 	buttons.style.display = "none";
 	afgerond.style.display = "none";
 	zoekbar.style.display = "block";
+	bevestigannuleren.style.display = "none";
 }
 
 window.onload = initPage;
