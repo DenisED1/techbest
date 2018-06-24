@@ -14,7 +14,7 @@ var pPrijs = null;
 
 //STARTSCHERM
 function initPage(){
-	fetch('techbest/restservices/producten')
+	fetch('/restservices/producten')
 	.then(response => response.json())
 	.then(function(myJson){
 		for (const product of myJson){
@@ -68,7 +68,7 @@ function bekijkProduct(productID){
 	pID = null;
 	pPrijs = null;
 	
-	fetch('techbest/restservices/producten/id/'+productID)
+	fetch('/restservices/producten/id/'+productID)
 	.then(response => response.json())
 	.then(function(myJson){
 		for (const product of myJson){    
@@ -117,17 +117,17 @@ function zoekProducten(){
 	var txtKl = document.getElementById("txtKl").value;
 	
 	if (txtPn != "Naam product"){
-		fetch('techbest/restservices/producten/naam/'+txtPn)
+		fetch('/restservices/producten/naam/'+txtPn)
 		.then(response => response.json())
 		.then(function(myJson){toonProducten(myJson)})
 	}
 	else if(txtLc != "Leverancier"){
-		fetch('techbest/restservices/producten/leverancier/'+txtLc)
+		fetch('/restservices/producten/leverancier/'+txtLc)
 		.then(response => response.json())
 		.then(function(myJson){toonProducten(myJson)})
 	}
 	else if(txtKl != "Kleur"){
-		fetch('techbest/restservices/producten/kleur/'+txtKl)
+		fetch('/restservices/producten/kleur/'+txtKl)
 		.then(response => response.json())
 		.then(function(myJson){toonProducten(myJson)})
 	}
@@ -186,7 +186,7 @@ document.getElementById('addWinkelwagen3').addEventListener("click", function(){
 
 function createOrder(productID, prijs){
 	if (order_ID === null){
-		fetch('techbest/restservices/producten/createOrder', {method: 'POST'})
+		fetch('/restservices/producten/createOrder', {method: 'POST'})
 		.then(response => response.json())
 		.then(function(myJson){
 			for(const order of myJson){
@@ -204,7 +204,7 @@ function createOrder(productID, prijs){
 
 //TOEVOEGEN AAN WINKELWAGEN
 function addWinkelwagen(order_ID, product_ID, pr){
-	fetch('techbest/restservices/producten/createOrderItem', {
+	fetch('/restservices/producten/createOrderItem', {
 		method: 'POST',
 		body: JSON.stringify({
 			orderID: order_ID,
@@ -253,7 +253,7 @@ function bekijkWinkelmand(){
 	if(order_ID !== null){
 		buttons.style.display = "block";
 		
-		fetch('techbest/restservices/producten/bekijkOrderItems/'+order_ID)
+		fetch('/restservices/producten/bekijkOrderItems/'+order_ID)
 		.then(response => response.json())
 		.then(function(myJson){
 			for (const item of myJson){
@@ -324,7 +324,7 @@ function bekijkWinkelmand(){
 
 //ITEM VERWIJDEREN
 function verwijderItem(item_ID){
-	fetch('techbest/restservices/producten/verwijderItem/'+item_ID, {method: 'DELETE'})
+	fetch('/restservices/producten/verwijderItem/'+item_ID, {method: 'DELETE'})
 	.then(function(response) {
       if (response.ok) // response-status = 200 OK
         console.log("Item "+item_ID+" deleted!");
@@ -359,7 +359,7 @@ function toonBevestigOrderVerwijderen(){
 document.getElementById('akkoord').addEventListener("click", function(){verwijderOrder(order_ID);});
 
 function verwijderOrder(order_ID){
-	fetch('techbest/restservices/producten/verwijderOrder/'+order_ID, {method: 'DELETE'})
+	fetch('/restservices/producten/verwijderOrder/'+order_ID, {method: 'DELETE'})
 	.then(function(response) {
       if (response.ok) // response-status = 200 OK
         console.log("Order "+order_ID+" deleted!");
@@ -404,7 +404,7 @@ function bekijkBevestiging(order_ID){
 	   elmtTable.removeChild(tableRows[x]);
 	}
 	
-	fetch('techbest/restservices/producten/bekijkOrderItems/'+order_ID)
+	fetch('/restservices/producten/bekijkOrderItems/'+order_ID)
 	.then(response => response.json())
 	.then(function(myJson){
 		for (const item of myJson){
