@@ -28,7 +28,7 @@ import nl.hu.ipass.techbest.model.ShopService;
 public class ShopResource {
 
 	@GET
-	@Path("getAll")
+	@Path("/getAll")
 	@Produces("application/json")
 	public String getAllProducten() {
 		ShopService service = ServiceProvider.getShopService();
@@ -55,7 +55,7 @@ public class ShopResource {
 	}
 	
 	@GET
-	@Path("id/{id}")
+	@Path("/id/{id}")
 	@Produces("application/json")
 	public String getProductByID(@PathParam("id") int id) {
 		ShopService service = ServiceProvider.getShopService();
@@ -84,7 +84,7 @@ public class ShopResource {
 	}
 	
 	@GET
-	@Path("kleur/{kl}")
+	@Path("/kleur/{kl}")
 	@Produces("application/json")
 	public String getProductByKleur(@PathParam("kl") String kl) {
 		ShopService service = ServiceProvider.getShopService();
@@ -111,7 +111,7 @@ public class ShopResource {
 	}
 	
 	@GET
-	@Path("leverancier/{lv}")
+	@Path("/leverancier/{lv}")
 	@Produces("application/json")
 	public String getProductByLeverancier(@PathParam("lv") String lv) {
 		ShopService service = ServiceProvider.getShopService();
@@ -138,7 +138,7 @@ public class ShopResource {
 	}
 	
 	@GET
-	@Path("naam/{nm}")
+	@Path("/naam/{nm}")
 	@Produces("application/json")
 	public String getProductByNaam(@PathParam("nm") String nm) {
 		ShopService service = ServiceProvider.getShopService();
@@ -165,7 +165,7 @@ public class ShopResource {
 	}
 	
 	@POST
-    @Path("createOrder")
+    @Path("/createOrder")
     @Consumes("application/json")
     @Produces("application/json")
     public String createOrder() {
@@ -185,7 +185,7 @@ public class ShopResource {
     }
 	
 	@POST
-	@Path("createOrderItem")
+	@Path("/createOrderItem")
 	@Consumes("application/json")
 	@Produces("application/json")
 	public String createOrderItem(String stringJson) {
@@ -213,7 +213,7 @@ public class ShopResource {
 	}
 	
 	@GET
-	@Path("bekijkOrderItems/{oid}")
+	@Path("/bekijkOrderItems/{oid}")
 	@Produces("application/json")
 	public String getProductByOrder(@PathParam("oid") int oid) {
 		ShopService service = ServiceProvider.getShopService();
@@ -237,7 +237,7 @@ public class ShopResource {
 	}
 	
 	@DELETE
-	@Path("verwijderItem/{iid}")
+	@Path("/verwijderItem/{iid}")
 	@Produces("application/json")
 	public Response verwijderItem(@PathParam("iid") int iid) {
 		ShopService service = ServiceProvider.getShopService();
@@ -250,7 +250,7 @@ public class ShopResource {
 	}
 	
 	@DELETE
-	@Path("verwijderOrder/{oid}")
+	@Path("/verwijderOrder/{oid}")
 	@Produces("application/json")
 	public Response verwijderOrder(@PathParam("oid") int oid) {
 		ShopService service = ServiceProvider.getShopService();
