@@ -14,7 +14,7 @@ var pPrijs = null;
 
 //STARTSCHERM
 function initPage(){
-	fetch('restservices/producten/getAll')
+	fetch('restservices/producten/getAll', {method: 'GET'})
 	.then(response => response.json())
 	.then(function(myJson){
 		for (const product of myJson){
@@ -68,7 +68,7 @@ function bekijkProduct(productID){
 	pID = null;
 	pPrijs = null;
 	
-	fetch('restservices/producten/id/'+productID)
+	fetch('restservices/producten/id/'+productID, {method: 'GET'})
 	.then(response => response.json())
 	.then(function(myJson){
 		for (const product of myJson){    
@@ -117,17 +117,17 @@ function zoekProducten(){
 	var txtKl = document.getElementById("txtKl").value;
 	
 	if (txtPn != "Naam product"){
-		fetch('restservices/producten/naam/'+txtPn)
+		fetch('restservices/producten/naam/'+txtPn, {method: 'GET'})
 		.then(response => response.json())
 		.then(function(myJson){toonProducten(myJson)})
 	}
 	else if(txtLc != "Leverancier"){
-		fetch('restservices/producten/leverancier/'+txtLc)
+		fetch('restservices/producten/leverancier/'+txtLc, {method: 'GET'})
 		.then(response => response.json())
 		.then(function(myJson){toonProducten(myJson)})
 	}
 	else if(txtKl != "Kleur"){
-		fetch('restservices/producten/kleur/'+txtKl)
+		fetch('restservices/producten/kleur/'+txtKl, {method: 'GET'})
 		.then(response => response.json())
 		.then(function(myJson){toonProducten(myJson)})
 	}
@@ -253,7 +253,7 @@ function bekijkWinkelmand(){
 	if(order_ID !== null){
 		buttons.style.display = "block";
 		
-		fetch('restservices/producten/bekijkOrderItems/'+order_ID)
+		fetch('restservices/producten/bekijkOrderItems/'+order_ID, {method: 'GET'})
 		.then(response => response.json())
 		.then(function(myJson){
 			for (const item of myJson){
@@ -404,7 +404,7 @@ function bekijkBevestiging(order_ID){
 	   elmtTable.removeChild(tableRows[x]);
 	}
 	
-	fetch('restservices/producten/bekijkOrderItems/'+order_ID)
+	fetch('restservices/producten/bekijkOrderItems/'+order_ID, {method: 'GET'})
 	.then(response => response.json())
 	.then(function(myJson){
 		for (const item of myJson){

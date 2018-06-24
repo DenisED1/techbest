@@ -28,7 +28,7 @@ import nl.hu.ipass.techbest.model.ShopService;
 public class ShopResource {
 
 	@GET
-	@Path("/getAll")
+	@Path("getAll")
 	@Produces("application/json")
 	public String getAllProducten() {
 		ShopService service = ServiceProvider.getShopService();
@@ -165,7 +165,7 @@ public class ShopResource {
 	}
 	
 	@POST
-    @Path("/createOrder")
+    @Path("createOrder")
     @Consumes("application/json")
     @Produces("application/json")
     public String createOrder() {
@@ -185,7 +185,7 @@ public class ShopResource {
     }
 	
 	@POST
-	@Path("/createOrderItem")
+	@Path("createOrderItem")
 	@Consumes("application/json")
 	@Produces("application/json")
 	public String createOrderItem(String stringJson) {
