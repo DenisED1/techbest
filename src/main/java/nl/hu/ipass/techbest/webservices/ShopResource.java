@@ -28,6 +28,7 @@ import nl.hu.ipass.techbest.model.ShopService;
 public class ShopResource {
 
 	@GET
+	@Path("/getAll")
 	@Produces("application/json")
 	public String getAllProducten() {
 		ShopService service = ServiceProvider.getShopService();

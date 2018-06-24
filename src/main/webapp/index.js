@@ -14,7 +14,7 @@ var pPrijs = null;
 
 //STARTSCHERM
 function initPage(){
-	fetch('restservices/producten')
+	fetch('restservices/producten/getAll')
 	.then(response => response.json())
 	.then(function(myJson){
 		for (const product of myJson){
